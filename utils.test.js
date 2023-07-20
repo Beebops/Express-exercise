@@ -1,9 +1,4 @@
-const {
-  getAverage,
-  getMedian,
-  getMode,
-  validateAndConvertToArray,
-} = require('./utils')
+const { getAverage, getMedian, getMode } = require('./utils')
 
 describe('getAverage', () => {
   it('returns the average of an array', () => {
