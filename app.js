@@ -33,6 +33,50 @@ app.get('/average', (request, response, next) => {
   return response.send(result)
 })
 
+app.get('/mode', (request, response, next) => {
+  if (!request.query.nums) {
+    throw new ExpressError(
+      'Query key must be "nums" with a comma-separated list of numbers',
+      400
+    )
+  }
+
+  let numsStr = request.query.nums
+  let nums = validateAndConvertToArray(numsStr)
+  if (nums instanceof Error) {
+    throw new ExpressError(nums.message)
+  }
+
+  let result = {
+    operation: 'mode',
+    result: getMode(nums),
+  }
+
+  return response.send(result)
+})
+
+app.get('/median', (request, response, next) => {
+  if (!request.query.nums) {
+    throw new ExpressError(
+      'Query key must be "nums" with a comma-separated list of numbers',
+      400
+    )
+  }
+
+  let numsStr = request.query.nums
+  let nums = validateAndConvertToArray(numsStr)
+  if (nums instanceof Error) {
+    throw new ExpressError(nums.message)
+  }
+
+  let result = {
+    operation: 'median',
+    result: getMedian(nums),
+  }
+
+  return response.send(result)
+})
+
 app.use((request, response, next) => {
   const error = new ExpressError('Not found', 404)
   return next(error)
